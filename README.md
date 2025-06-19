@@ -49,8 +49,8 @@ cmake .. && make
 ### 4. Uygulamayı Çalıştırma
 - Python scriptini başlatın:
 ``` bash
-cd CAMO_FOR_CV_2\CAMO_FOR_CV_2#PY&API
-python CAMO_FOR_CV_2\CAMO_FOR_CV_2#PY&API\CAMO_FOR_CV_2_PY#api_gateway.py
+cd CAMO_FOR_CV_2\CAMO_FOR_CV_2#PY-API
+python CAMO_FOR_CV_2\CAMO_FOR_CV_2#PY-API\CAMO_FOR_CV_2_PY#api_gateway.py
 ```
 - Kamera paketi algılar ve belirtilen bilgilere göre kayıt yapar.
 - Web sunucusunu başlatın:
