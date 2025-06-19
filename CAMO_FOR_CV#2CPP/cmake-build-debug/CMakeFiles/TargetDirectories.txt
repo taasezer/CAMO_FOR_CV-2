@@ -1,0 +1,2 @@
+C:/Users/tahas/OneDrive/Desktop/CAMO_FOR_CV#2CPP/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/tahas/OneDrive/Desktop/CAMO_FOR_CV#2CPP/cmake-build-debug/CMakeFiles/rebuild_cache.dir
