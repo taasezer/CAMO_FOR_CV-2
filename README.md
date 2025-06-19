@@ -35,7 +35,7 @@ pip install opencv-python pytesseract
  ### 2. DLL Derlenmesi (C++ Video Yakalama Modülü)
 - Proje içinde bulunan C++ kaynak kodunu uygun derleyici (MinGW, Visual Studio) ile derleyin:
 ``` bash
-cd backend/cpp
+cd CAMO_FOR_CV_2\CAMO_FOR_CV#2CPP
 mkdir build && cd build
 cmake .. && make
 ```
@@ -49,14 +49,20 @@ cmake .. && make
 ### 4. Uygulamayı Çalıştırma
 - Python scriptini başlatın:
 ``` bash
-cd backend/python
-python api_gateway.py
+cd CAMO_FOR_CV_2\CAMO_FOR_CV_2#PY&API
+python CAMO_FOR_CV_2\CAMO_FOR_CV_2#PY&API\CAMO_FOR_CV_2_PY#api_gateway.py
 ```
 - Kamera paketi algılar ve belirtilen bilgilere göre kayıt yapar.
+- Web sunucusunu başlatın:
+```bash
+cd CAMO_FOR_CV_2\CAMO_FOR_CV_2#Front
+node CAMO_FOR_CV_2\CAMO_FOR_CV_2#Front\CAMO_FOR_CV_2#server.js
+```
 
 ## Proje Dosya Yapısı
 
 ``` bash
+sadece örnek bir şema
 cargo-tracking-system/
 ├── backend/
 │   ├── cpp/                  # Kamera yakalama (C++)
