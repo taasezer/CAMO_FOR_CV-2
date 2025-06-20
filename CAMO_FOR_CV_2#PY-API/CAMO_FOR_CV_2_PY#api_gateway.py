@@ -5,7 +5,7 @@ import os
 import ctypes
 
 # C# DLL'sini yükle
-cpp_dll = ctypes.CDLL('./CAMO_CM_CPP.dll')
+cpp_dll = ctypes.CDLL('./CAMO_FOR_CV_2.dll')
 
 app = FastAPI()
 
