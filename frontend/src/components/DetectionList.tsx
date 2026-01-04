@@ -5,6 +5,8 @@ import { ScanEye, Box } from 'lucide-react';
 interface Detection {
     label: string;
     confidence: number;
+    is_fragile: boolean;
+    dimensions: string;
 }
 
 export function DetectionList() {
@@ -49,9 +51,17 @@ export function DetectionList() {
                     <p className="text-sm text-muted-foreground italic">No objects detected...</p>
                 ) : (
                     detections.map((d, i) => (
-                        <div key={i} className="flex justify-between items-center bg-secondary/50 p-2 rounded text-sm">
-                            <span className="font-medium capitalize">{d.label}</span>
-                            <span className="text-xs text-muted-foreground">{(d.confidence * 100).toFixed(0)}%</span>
+                        <div key={i} className="flex flex-col bg-secondary/50 p-2 rounded text-sm gap-1">
+                            <div className="flex justify-between items-center">
+                                <span className="font-medium capitalize flex items-center gap-2">
+                                    {d.label}
+                                    {d.is_fragile && <span className="text-[10px] bg-red-500/80 text-white px-1 rounded">FRAGILE</span>}
+                                </span>
+                                <span className="text-xs text-muted-foreground">{(d.confidence * 100).toFixed(0)}%</span>
+                            </div>
+                            <div className="text-xs text-muted-foreground font-mono">
+                                Dim: {d.dimensions}
+                            </div>
                         </div>
                     ))
                 )}
