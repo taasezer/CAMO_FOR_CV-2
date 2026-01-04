@@ -1,96 +1,68 @@
-# CAMO_FOR_CV#2
 
-## Proje Hakkında
-- Bu proje, kargo paketleme sürecini otomatikleştirmek için geliştirilmiş kamera destekli bir takip sistemidir. 
-- Paket üzerindeki etiketten ismi okuyarak (OCR teknolojisi) paketleme videosu ile müşteri bilgilerini aynı klasör içinde saklar. 
-- Ayrıca bu bilgileri Microsoft SQL Server (TSQL) veritabanına kaydeder.
+# CAMO_FOR_CV-2
 
-## Özellikler
-- Gerçek zamanlı kamera görüntüsü ile paket etiketi üzerindeki isim bilgisi okuma.
-- Paketleme işlemi videosu kaydı ve kaydın ilgili kişi bilgisi dosyası ile eşleştirilmesi.
-- Kişisel bilgilerin (Ad, Soyad, Adres vb.) dosya olarak kaydedilmesi.
-- TSQL kullanan veritabanı ile paket ve kullanıcı bilgileri takibi.
-- Basit ama etkili veritabanı yönetimi için C# tabanlı veri kaydetme modülü.
-- Hata yakalama ve kullanıcı bilgilendirme.
+This project is an advanced, AI-powered cargo tracking and verification system. It leverages computer vision to automate the packing process, verify shipment integrity, and provide real-time operational analytics.
 
-## Gereksinimler
+## About the Project
 
-- Python 3.11 veya üzeri
-- Microsoft Visual C++ Derleyici (C++ modülünün derlenmesi için).
-- Microsoft SQL Server (T-SQL destekli veritabanı).
-- .NET Framework veya .NET Core (C# modülünü çalıştırmak için).
-- Python pip paketleri: opencv-python, pytesseract.
-- Tesseract-OCR kurulu ve sistem PATH’inde olması gerekmektedir.
+CAMO_FOR_CV-2 modernizes traditional logistics tracking by replacing manual checks with intelligent automation. The system uses a camera feed to detect packages, read shipping labels, and verify compliance (such as "Fragile" warnings) without human intervention.
 
-## Kurulum ve Çalıştırma
+## Key Features
 
- ### 1. Python Ortamını Hazırlama
-``` bash
-pip install opencv-python pytesseract
-```
- #### Windows için:
- - https://github.com/tesseract-ocr/tesseract/releases adresinden uygun sürüm indirilmeli.
- - Kurulum sonrası PATH değişkenine tesseract yolu eklenmeli.
+### Intelligent Vision
+*   **Object Detection:** Uses YOLOv8 to automatically identify boxes, personnel, and equipment in the video feed.
+*   **Automatic Recording:** Triggers video recording only when relevant objects are detected, optimizing storage.
 
- ### 2. DLL Derlenmesi (C++ Video Yakalama Modülü)
-- Proje içinde bulunan C++ kaynak kodunu uygun derleyici (MinGW, Visual Studio) ile derleyin:
-``` bash
-cd CAMO_FOR_CV_2\CAMO_FOR_CV#2CPP
-mkdir build && cd build
-cmake .. && make
-```
-- "CAMO_CM_CPP.dll" dosyasını Python projesinin kök dizinine yerleştirin.
+### Text Recognition (OCR)
+*   **Label Reading:** Integrated EasyOCR engine scans and digitizes text from shipping labels.
+*   **Data Extraction:** Automatically parses names, addresses, and tracking numbers from valid labels.
 
-### 3. Microsoft SQL Server Kurulumu
-- SQL Server servisini kurup çalıştırın.
-- Veritabanı ve tabloları oluşturun (şema örnekleri sağlanacaktır).
-- C# uygulamasındaki bağlantı dizisini (connection string) kendi ortamınıza göre düzenleyin.
+### Quality Control
+*   **Dimension Estimation:** Estimates the physical dimensions (width x height) of packages using camera calibration.
+*   **Compliance Verification:** Detects specific visual markers, such as red "Fragile" stickers, to ensure proper handling.
 
-### 4. Uygulamayı Çalıştırma
-- Python scriptini başlatın:
-``` bash
-cd CAMO_FOR_CV_2\CAMO_FOR_CV_2#PY-API
-python CAMO_FOR_CV_2\CAMO_FOR_CV_2#PY-API\CAMO_FOR_CV_2_PY#api_gateway.py
-```
-- Kamera paketi algılar ve belirtilen bilgilere göre kayıt yapar.
-- Web sunucusunu başlatın:
-```bash
-cd CAMO_FOR_CV_2\CAMO_FOR_CV_2#Front
-node CAMO_FOR_CV_2\CAMO_FOR_CV_2#Front\CAMO_FOR_CV_2#server.js
-```
+### Analytics Dashboard
+*   **Real-time Monitoring:** A web-based dashboard displays the live video feed with augmented reality overlays.
+*   **Operational Stats:** Tracks key performance indicators including daily throughput, package counts, and peak activity hours.
 
-## Proje Dosya Yapısı
+## Technical Architecture
 
-``` bash
-sadece örnek bir şema
-cargo-tracking-system/
-├── backend/
-│   ├── cpp/                  # Kamera yakalama (C++)
-│   │   ├── CMakeLists.txt
-│   │   ├── camo_capture.cpp
-│   ├── csharp/               # Veritabanı işlemleri (C#)
-│   │   ├── DatabaseManager.cs
-│   │   └── DatabaseManager.csproj
-│   └── python/               # API & OCR (Python)
-│       ├── api_gateway.py
-│       ├── ocr_processor.py
-│       └── requirements.txt
-└── README.md                 # Proje dökümantasyonu
-```
-## Kullanım
-- Paket odaya girildiğinde uygulama kamera açılır ve canlı yayına başlar.
-- Paket üzerindeki etiket üzerindeki isim OCR ile okunur.
-- Paketleme süreci video olarak kaydedilir.
-- Okunan bilgiler (isim, soyisim, adres vb.) metin dosyası halinde kaydedilir.
-- Video ve metin dosyaları aynı klasörde tutulur.
-- Veritabanına paket ve müşteri bilgileri kaydedilir.
-- Opsiyonel olarak web arayüzü üzerinden kişi bilgileri aranabilir.
+The system is built on a unified, modern technology stack:
 
-## Geliştirme ve Katkı
-Proje açık kaynak olarak geliştirilmekte olup, katkılarınızı memnuniyetle karşılarız.
-Lütfen hata bildirmek veya özellik talep etmek için issue açınız. Pull request göndermekten çekinmeyiniz.
+*   **Backend:** Python (FastAPI)
+*   **Frontend:** React (Vite) with Tailwind CSS
+*   **AI/ML:** Ultralytics YOLOv8, EasyOCR, OpenCV
+*   **Database:** SQLModel (SQLite/PostgreSQL)
 
-## İletişim
-- Herhangi bir soru veya destek talebi için aşağıdaki iletişim adresleri kullanılabilir:
+## Installation
 
-## E-posta: [taha.sezer@istun.edu.tr]
+### Prerequisites
+*   Python 3.10 or higher
+*   Node.js 18 or higher
+*   Webcam connected to the host machine
+
+### Setup Steps
+
+1.  **Backend Setup**
+    Navigate to the project root and install Python dependencies:
+    ```bash
+    pip install -r backend/requirements.txt
+    ```
+    Start the backend server:
+    ```bash
+    python -m uvicorn backend.main:app --host 0.0.0.0 --port 8000
+    ```
+
+2.  **Frontend Setup**
+    Open a new terminal window, navigate to the frontend directory, and install dependencies:
+    ```bash
+    cd frontend
+    npm install
+    ```
+    Start the user interface:
+    ```bash
+    npm run dev
+    ```
+
+3.  **Usage**
+    Open your web browser and navigate to http://localhost:5173 to access the dashboard.
