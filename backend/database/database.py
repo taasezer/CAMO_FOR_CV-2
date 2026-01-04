@@ -10,4 +10,5 @@ def get_session():
         yield session
 
 def init_db():
+    from backend.models.models import Cargo, SystemLog
     SQLModel.metadata.create_all(engine)

@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.routers import video
+from backend.routers import video, ai, database_api
+from backend.database.database import init_db
 import uvicorn
 
 app = FastAPI(
@@ -24,6 +25,12 @@ app.add_middleware(
 )
 
 app.include_router(video.router)
+app.include_router(ai.router)
+app.include_router(database_api.router)
+
+@app.on_event("startup")
+def on_startup():
+    init_db()
 
 @app.get("/")
 async def root():

@@ -1,4 +1,5 @@
 import { Video, Package, BarChart3, Settings, Search } from "lucide-react";
+import { DetectionList } from "./components/DetectionList";
 
 function App() {
   return (
@@ -85,22 +86,10 @@ function App() {
               </div>
             </div>
 
-            {/* Side Panel (Logs) */}
-            <div className="rounded-xl border border-border bg-card p-4 flex flex-col h-full">
-              <h3 className="font-semibold mb-4">Recent Activity</h3>
-              <div className="space-y-4 overflow-y-auto flex-1 pr-2">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} className="flex gap-3 items-start border-b border-border/50 pb-3 last:border-0">
-                    <div className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 shrink-0">
-                      <Package className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium">Order #TR-882{i}</p>
-                      <p className="text-xs text-muted-foreground">Processed 2 mins ago</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+
+            {/* Side Panel (AI Logs) */}
+            <div className="h-full">
+              <DetectionList />
             </div>
           </div>
         </div>
