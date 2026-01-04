@@ -1,5 +1,0 @@
-fastapi==0.85.0
-uvicorn==0.19.0
-pytesseract==0.3.10
-opencv-python==4.7.0.72
-pythonnet==3.0.1

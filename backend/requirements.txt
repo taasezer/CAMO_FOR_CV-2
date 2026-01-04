@@ -6,6 +6,6 @@ opencv-python-headless
 ultralytics
 easyocr
 python-multipart
-
+pydantic
 python-dotenv
 websockets

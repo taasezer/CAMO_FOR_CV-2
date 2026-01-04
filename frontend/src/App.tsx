@@ -1,7 +1,27 @@
 import { Video, Package, BarChart3, Settings, Search } from "lucide-react";
 import { DetectionList } from "./components/DetectionList";
+import { AnalyticsChart } from "./components/AnalyticsChart";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function App() {
+  const [stats, setStats] = useState({
+    today_packages: 0,
+    throughput: "0/h",
+    pending: 0
+  });
+
+  useEffect(() => {
+    const fetchStats = () => {
+      axios.get('http://localhost:8000/analytics/summary')
+        .then(res => setStats(res.data))
+        .catch(console.error);
+    };
+    fetchStats();
+    const interval = setInterval(fetchStats, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="flex h-screen bg-background text-foreground overflow-hidden">
       {/* Sidebar */}
@@ -26,7 +46,7 @@ function App() {
               <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
               <span className="text-xs font-medium">System Online</span>
             </div>
-            <p className="text-[10px] text-muted-foreground">v2.0.0-alpha</p>
+            <p className="text-[10px] text-muted-foreground">v2.1.0-ultimate</p>
           </div>
         </div>
       </aside>
@@ -53,13 +73,12 @@ function App() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
             {/* Main Video Feed */}
             <div className="lg:col-span-2 flex flex-col gap-6">
-              <div className="rounded-xl border border-border bg-black/50 aspect-video relative overflow-hidden group">
+              <div className="rounded-xl border border-border bg-black/50 aspect-video relative overflow-hidden group shadow-2xl">
                 <img
                   src="http://localhost:8000/video/feed"
                   alt="Live Camera"
                   className="w-full h-full object-cover"
                   onError={(e) => {
-                    // While backend is offline, show placeholder
                     e.currentTarget.style.display = 'none';
                     e.currentTarget.parentElement!.querySelector('.placeholder')!.classList.remove('hidden');
                   }}
@@ -72,20 +91,20 @@ function App() {
                 {/* HUD Overlay */}
                 <div className="absolute top-4 left-4 flex gap-2">
                   <span className="px-2 py-1 rounded bg-red-500/80 text-white text-xs font-bold animate-pulse">LIVE</span>
-                  <span className="px-2 py-1 rounded bg-black/50 text-white text-xs font-mono">CAM-01</span>
+                  <span className="px-2 py-1 rounded bg-black/50 text-white text-xs font-mono">CAM-01 [1080p]</span>
                 </div>
-
-                <div className="absolute inset-0 border-2 border-primary/20 pointer-events-none rounded-xl"></div>
               </div>
 
               {/* Stats Row */}
               <div className="grid grid-cols-3 gap-4">
-                <StatCard title="Packages Today" value="124" trend="+12%" />
-                <StatCard title="Throughput" value="42/h" trend="+5%" />
-                <StatCard title="Pending" value="8" trend="normal" />
+                <StatCard title="Packages Today" value={stats.today_packages} trend="+12%" />
+                <StatCard title="Throughput" value={stats.throughput} trend="+5%" />
+                <StatCard title="Pending" value={stats.pending} trend="normal" />
               </div>
-            </div>
 
+              {/* Analytics Chart */}
+              <AnalyticsChart />
+            </div>
 
             {/* Side Panel (AI Logs) */}
             <div className="h-full">
@@ -107,9 +126,9 @@ function NavItem({ icon, label, active = false }: { icon: any, label: string, ac
   )
 }
 
-function StatCard({ title, value, trend }: { title: string, value: string, trend: string }) {
+function StatCard({ title, value, trend }: { title: string, value: string | number, trend: string }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-4">
+    <div className="rounded-xl border border-border bg-card p-4 shadow-sm hover:shadow-md transition-shadow">
       <p className="text-xs text-muted-foreground">{title}</p>
       <div className="flex items-end justify-between mt-1">
         <span className="text-2xl font-bold">{value}</span>
